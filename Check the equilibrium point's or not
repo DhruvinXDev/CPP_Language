@@ -1,0 +1,23 @@
+#include<stdio.h>
+
+void main()
+{
+    int n,sa=0,sb=0,sc=0,a,b,c;
+    printf("Enter the total number :");
+
+    scanf("%d",&n);
+    for(int i=1;i<=n;i++)
+    {
+        printf("Enter the point :");
+        scanf("%d %d %d",&a,&b,&c);
+        sa+=a;
+        sb+=b;
+        sc+=c;
+    }
+    if (sa==0 && sb==0 && sc==0)
+    {
+        printf("Yes !!");
+    }
+    else
+        printf("No !!");
+}
