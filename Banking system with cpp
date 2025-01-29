@@ -7,7 +7,7 @@ int main() {
     double balance = 0.0, amount;
     int choice;
 
-    cout << "Enter account holder's name: ";
+    cout << "Enter Account Holder's name: ";
     getline(cin, ownerName);
     cout << "Enter account number: ";
     cin >> accountNumber;
