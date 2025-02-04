@@ -77,7 +77,7 @@ int main()
         }
         if(p==1)
         {
-            cout<<"This account number has not available"<<endl;
+            cout<<"This account number has not available."<<endl;
         }
 
         p=0;
@@ -98,7 +98,7 @@ int main()
             }
         }
         if(p==1)
-            cout<<"This account number has not available"<<endl;
+            cout<<"This account number has not available."<<endl;
         p=0;
         goto x;
         break;
@@ -115,7 +115,7 @@ int main()
             }
         }
         if(p==1)
-            cout<<"This account number has not available"<<endl;
+            cout<<"This account number has not available."<<endl;
         p=0;
         goto x;
         break;
