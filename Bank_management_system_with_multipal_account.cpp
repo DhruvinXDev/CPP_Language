@@ -14,6 +14,7 @@ public :
         cin >> bl;
         balance+=bl;
         cout <<"You'r successfully add amount in your account."<<endl;
+        cout << "Your current balance is : "<<balance <<endl;
     }
     void withdraw(float x )
     {
@@ -23,7 +24,7 @@ public :
             cout << "You have not enough amount for withdraw ."<<endl;
         }
         else
-        cout << "You'r successfully withdraw your amount ." << endl<<"Current amount is : "<<balance<<endl ;
+        cout << "You'r successfully withdraw your amount ." << endl<<"Current balance is : "<<balance<<endl ;
 
     }
     void abalance ()
@@ -34,7 +35,7 @@ public :
 
 int main()
 {
-    int n;
+    int n,p=0;
 
     double num,a;
     short int c;
@@ -69,10 +70,17 @@ int main()
         {
             if(b[i].anum==num)
             {
+                p++;
                 b[i].deposit( );
                 break;
             }
         }
+        if(p==1)
+        {
+            cout<<"This account number has not available"<<endl;
+        }
+
+        p=0;
         goto x;
         break;
     case 2:
@@ -82,12 +90,16 @@ int main()
         {
             if(b[i].anum==num)
             {
+                p++;
                 cout << "Enter the amount you want to withdraw :";
                 cin >> a;
                 b[i].withdraw(a);
                 break;
             }
         }
+        if(p==1)
+            cout<<"This account number has not available"<<endl;
+        p=0;
         goto x;
         break;
     case 3:
@@ -97,10 +109,14 @@ int main()
         {
             if(b[i].anum==num)
             {
+                p++;
                 cout << "Your current amount is :"<<b[i].balance<<endl;
                 break;
             }
         }
+        if(p==1)
+            cout<<"This account number has not available"<<endl;
+        p=0;
         goto x;
         break;
     case 4:
