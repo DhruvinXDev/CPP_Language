@@ -18,13 +18,16 @@ public :
     }
     void withdraw(float x )
     {
-        balance -= x;
+
         if(balance <0)
         {
             cout << "You have not enough amount for withdraw ."<<endl;
         }
         else
-        cout << "You'r successfully withdraw your amount ." << endl<<"Current balance is : "<<balance<<endl ;
+        {
+            balance -= x;
+            cout << "You'r successfully withdraw your amount ." << endl<<"Current balance is : "<<balance<<endl ;
+        }
 
     }
     void abalance ()
@@ -68,6 +71,7 @@ int main()
         cin >>num;
         for(int i=0;i<n;i++)
         {
+            p=0;
             if(b[i].anum==num)
             {
                 p++;
@@ -75,7 +79,7 @@ int main()
                 break;
             }
         }
-        if(p==1)
+        if(p!=1)
         {
             cout<<"This account number has not available."<<endl;
         }
@@ -88,6 +92,7 @@ int main()
         cin >>num;
         for(int i=0;i<n;i++)
         {
+            p=0;
             if(b[i].anum==num)
             {
                 p++;
@@ -97,7 +102,7 @@ int main()
                 break;
             }
         }
-        if(p==1)
+        if(p!=1)
             cout<<"This account number has not available."<<endl;
         p=0;
         goto x;
@@ -107,6 +112,7 @@ int main()
         cin >>num;
         for(int i=0;i<n;i++)
         {
+            p=0;
             if(b[i].anum==num)
             {
                 p++;
@@ -114,7 +120,7 @@ int main()
                 break;
             }
         }
-        if(p==1)
+        if(p!=1)
             cout<<"This account number has not available."<<endl;
         p=0;
         goto x;
