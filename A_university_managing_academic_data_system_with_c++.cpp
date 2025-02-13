@@ -29,7 +29,7 @@ public :
         // cout <<"--------------------------------------------------------"<<endl;
         cout <<"Name is : "<<name<<endl;
         cout <<"Roll number is : "<<roll_num<<endl;
-        cout <<"Your marks of three subject is : "<<endl;
+        cout <<"Your marks of three subject , "<<endl;
         cout <<"    1st subject marks is : "<<marks1<<endl;
         cout <<"    2nd subject marks is : "<<marks2<<endl;;
         cout <<"    3rd subject marks is : "<<marks3<<endl;
@@ -52,6 +52,8 @@ int main()
         cout <<"       ------ Welcome to Administration block ------    "<<endl;
         for(int i=0; i<n;i++)
         {
+            cout <<"--------------------------------------------------------"<<endl;
+            cout <<"           ------ Enter "<<i+1 <<" student data ------    "<<endl;
             cout <<"--------------------------------------------------------"<<endl;
             s[i].enter_data();
         }
