@@ -8,7 +8,7 @@ class  Student
     float marks1,marks2,marks3,average;
 public :
     string roll_num ;
-    Student ( ) : roll_num("0"),marks1(0),marks2(0),marks3(0),average(0),name("Unknown Student") { }
+    Student ( ) : roll_num("0"),marks1(0),marks2(0),marks3(0),average(0),name("Unknown Student ") { }
     void enter_data( )
     {
         cout <<"Enter roll number of student : ";
