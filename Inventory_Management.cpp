@@ -48,7 +48,7 @@ class Inventory
     {
         return price*q;
     }
-    int get_id(int id)
+    int get_id( )
     {
         return id;
     }
@@ -111,7 +111,7 @@ int main( )
                 cin >> remove_id;
                 for(int i=0;i<num;i++)
                 {
-                    if(item[i].get_id(remove_id)==remove_id)
+                    if(item[i].get_id( )==remove_id)
                     {
                         int q;
                         cout << "Enter the quantity you want to remove :";
@@ -133,7 +133,7 @@ int main( )
                 cin >> add_id;
                 for(int i=0;i<num;i++)
                 {
-                    if(item[i].get_id(add_id)==add_id)
+                    if(item[i].get_id( )==add_id)
                     {
                         int q;
                         cout << "Enter the quantity you want to add :";
@@ -152,7 +152,7 @@ int main( )
                 cin >> display_id;
                 for(int i=0;i<num;i++)
                 {
-                    id=item[i].get_id(display_id);
+                    id=item[i].get_id( );
                     if(id==display_id)
                     {
                         item[i].display_details();
