@@ -3,7 +3,6 @@
 using namespace std;
 class  Student
 {
-
     string name;
     float marks1,marks2,marks3,average;
 public :
