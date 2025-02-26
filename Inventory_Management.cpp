@@ -1,18 +1,20 @@
 #include<iostream>
 #include<vector>
+#include<string>
 using namespace std;
-class Inventory 
+class Inventory
 {
     string name;
     float  price;
     int quantity,id;
     public :
+    Inventory ( ) : name("UNKNOWN Item") ,price(0),quantity(0),id(0) { }
     void add_item()
     {
         cout<<"Enter the id of the item : ";
         cin>>id;
         cout<<"Enter the name of the item : ";
-        cin>>name;
+        cin >> name;
         cout<<"Enter the price of the item : ";
         cin>>price;
         cout<<"Enter the quantity of the item : ";
@@ -60,9 +62,6 @@ class Inventory
 
 int main( )
 {
-
-
-    
     int num,number_items;
     short int choice=0;
     cout<<"Enter the number of items : ";
