@@ -37,16 +37,19 @@ int main()
         cin >>numbers[i];
     }
 
-    high_resolution_clock clock;
-    auto start = clock.now();
-
+    auto start_addition = high_resolution_clock::now();
     int sum = addition(numbers);
-    int r_sum = recursion(size,numbers);
+    auto end_addition = high_resolution_clock::now();
+    duration<double> time_addition = end_addition - start_addition;
 
-    auto end = clock.now();
-    duration<double> elapsed = end - start;
-    
-    cout << "Time taken: " << elapsed.count() << " seconds\n";
+    // Measure time for recursion()
+    auto start_recursion = high_resolution_clock::now();
+    int r_sum = recursion(size, numbers);
+    auto end_recursion = high_resolution_clock::now();
+    duration<double> time_recursion = end_recursion - start_recursion;
+
+    cout << "Time taken for addition: " << time_addition.count() << " seconds\n";
+    cout << "Time taken for recursion: " << time_recursion.count() << " seconds\n";
 
     cout <<"the sum is : "<<sum<<endl;
     cout  <<"the recursion sum is : "<< r_sum<<endl;
