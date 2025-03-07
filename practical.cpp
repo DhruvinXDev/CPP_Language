@@ -2,6 +2,7 @@
 using namespace std;
 class faculty ;
 
+
 class student
 {
     int studentid, mathmark, cmark;
