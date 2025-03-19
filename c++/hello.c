@@ -3,7 +3,7 @@
 int main ( )
 {
    void f();
-   return 0;
+   return 0;;
 }
 void f( )
 {
