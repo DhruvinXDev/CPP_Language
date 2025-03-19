@@ -1,0 +1,105 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+}
+
+.logo {
+    font-size: 24px;
+}
+
+.user-options {
+    display: flex;
+}
+
+.profile-icon, .notification-icon {
+    margin-left: 15px;
+    cursor: pointer;
+}
+
+main {
+    padding: 20px;
+}
+
+h1 {
+    color: #333;
+}
+
+.quick-access {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.tile {
+    background-color: #007bff;
+    color: white;
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+    flex-grow: 1; /* Allow tiles to grow equally */
+    margin-right: 10px; /* Space between tiles */
+}
+
+.tile:last-child {
+    margin-right: 0; /* Remove margin from the last tile */
+}
+
+.current-medications, .upcoming-reminders, .health-insights {
+    background-color: white;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    border-bottom: 1px solid #ddd;
+    padding: 8px;
+}
+
+.reminder-card {
+    background-color: #e7f3fe; /* Light blue background */
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.find-pharmacy {
+   background-color:#28a745; 
+   color:white; 
+   padding:10px; 
+   border:none; 
+   border-radius:5px; 
+   cursor:pointer; 
+   margin-top:10px; 
+}
+
+footer {
+   background-color:#007bff; 
+   color:white; 
+   text-align:center; 
+   padding:10px; 
+   position:absolute; 
+   width:100%; 
+   bottom:0; 
+}
+
+.footer-nav a {
+   color:white; 
+   margin-right:15px; 
+   text-decoration:none; 
+}

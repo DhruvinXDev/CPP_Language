@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Healthcare App Home</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="logo">HealthCareApp</div>
+        <div class="user-options">
+            <div class="profile-icon">👤</div>
+            <div class="notification-icon">🔔</div>
+        </div>
+    </header>
+
+    <main>
+        <h1>Welcome, [User's Name]!</h1>
+
+        <div class="quick-access">
+            <div class="tile">Medicine Verification</div>
+            <div class="tile">Medicine Recommendations</div>
+            <div class="tile">Schedule Management</div>
+            <div class="tile">Symptom Tracker</div>
+        </div>
+
+        <section class="current-medications">
+            <h2>Current Medications</h2>
+            <table>
+                <tr>
+                    <th>Medicine Name</th>
+                    <th>Dosage</th>
+                    <th>Time</th>
+                    <th>Status</th>
+                </tr>
+                <!-- Example Row -->
+                <tr>
+                    <td>Amoxicillin</td>
+                    <td>500mg</td>
+                    <td>10:00 AM</td>
+                    <td><button>Taken</button></td>
+                </tr>
+                <!-- Add more rows as needed -->
+            </table>
+        </section>
+
+        <section class="upcoming-reminders">
+            <h2>Upcoming Reminders</h2>
+            <div class="reminder-card">
+                <p><strong>Medicine Name:</strong> Ibuprofen</p>
+                <p><strong>Time:</strong> 2:00 PM</p>
+                <button>Snooze</button>
+                <button>Edit</button>
+            </div>
+
+            <!-- Add more reminder cards as needed -->
+        </section>
+
+        <section class="health-insights">
+            <h2>Health Insights</h2>
+            <p><strong>Symptom Tracking Summary:</strong> [Summary Here]</p>
+            <p><a href="#">Health Tips/Articles</a></p>
+        </section>
+
+        <button class="find-pharmacy">Find Pharmacy</button>
+
+    </main>
+
+    <footer>
+        <nav class="footer-nav">
+            <a href="#">Home</a>
+            <a href="#">Medicines</a>
+            <a href="#">EMR</a>
+            <a href="#">Settings</a>
+        </nav>
+    </footer>
+
+</body>
+</html>

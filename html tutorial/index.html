@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Saturn Model</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: #000;
+        }
+        canvas {
+            display: block;
+        }
+        .info {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="info">Click and drag to rotate | Scroll to zoom</div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+        // Initialize the scene
+        const scene = new THREE.Scene();
+        
+        // Set up camera
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.z = 30;
+        
+        // Set up renderer
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setClearColor(0x000000);
+        document.body.appendChild(renderer.domElement);
+        
+        // OrbitControls implementation (since the CDN import might be causing issues)
+        class OrbitControls {
+            constructor(camera, domElement) {
+                this.camera = camera;
+                this.domElement = domElement;
+                this.target = new THREE.Vector3();
+                this.enableDamping = false;
+                this.dampingFactor = 0.05;
+                this.rotateSpeed = 1.0;
+                this.enabled = true;
+                
+                // State
+                this.isMouseDown = false;
+                this.mouseX = 0;
+                this.mouseY = 0;
+                this.rotationAngleX = 0;
+                this.rotationAngleY = 0;
+                
+                // Event listeners
+                this.domElement.addEventListener('mousedown', this.onMouseDown.bind(this));
+                document.addEventListener('mouseup', this.onMouseUp.bind(this));
+                document.addEventListener('mousemove', this.onMouseMove.bind(this));
+                this.domElement.addEventListener('wheel', this.onWheel.bind(this));
+                
+                // Initialize camera position
+                this.update();
+            }
+            
+            onMouseDown(event) {
+                this.isMouseDown = true;
+                this.mouseX = event.clientX;
+                this.mouseY = event.clientY;
+            }
+            
+            onMouseUp() {
+                this.isMouseDown = false;
+            }
+            
+            onMouseMove(event) {
+                if (!this.isMouseDown || !this.enabled) return;
+                
+                const deltaX = event.clientX - this.mouseX;
+                const deltaY = event.clientY - this.mouseY;
+                
+                this.rotationAngleY += deltaX * 0.01 * this.rotateSpeed;
+                this.rotationAngleX += deltaY * 0.01 * this.rotateSpeed;
+                
+                // Limit vertical rotation
+                this.rotationAngleX = Math.max(-Math.PI / 2, Math.min(Math.PI / 2, this.rotationAngleX));
+                
+                this.mouseX = event.clientX;
+                this.mouseY = event.clientY;
+                
+                this.update();
+            }
+            
+            onWheel(event) {
+                event.preventDefault();
+                
+                const distance = this.camera.position.distanceTo(this.target);
+                const delta = event.deltaY > 0 ? 1.1 : 0.9;
+                
+                // Limit zoom
+                const newDistance = Math.max(10, Math.min(50, distance * delta));
+                const ratio = newDistance / distance;
+
+                this.camera.position.sub(this.target);
+                this.camera.position.multiplyScalar(ratio);
+                this.camera.position.add(this.target);
+
+                this.update();
+            }
+
+            update() {
+                const offset = new THREE.Vector3();
+                const quat = new THREE.Quaternion().setFromEuler(
+                    new THREE.Euler(this.rotationAngleX, this.rotationAngleY, 0, 'YXZ')
+                );
+
+                const distance = this.camera.position.distanceTo(this.target);
+                offset.copy(new THREE.Vector3(0, 0, distance));
+                offset.applyQuaternion(quat);
+
+                this.camera.position.copy(this.target).add(offset);
+                this.camera.lookAt(this.target);
+            }
+        }
+        
+        // Create stars
+        function createStars() {
+            const starsGeometry = new THREE.BufferGeometry();
+            const starsMaterial = new THREE.PointsMaterial({
+                color: 0xFFFFFF,
+                size: 0.1,
+            });
+            
+            const starsVertices = [];
+            for (let i = 0; i < 10000; i++) {
+                const x = THREE.MathUtils.randFloatSpread(2000);
+                const y = THREE.MathUtils.randFloatSpread(2000);
+                const z = THREE.MathUtils.randFloatSpread(2000);
+                starsVertices.push(x, y, z);
+            }
+            
+            starsGeometry.setAttribute('position', new THREE.Float32BufferAttribute(starsVertices, 3));
+            const stars = new THREE.Points(starsGeometry, starsMaterial);
+            scene.add(stars);
+        }
+        
+        // Create Saturn with simpler materials to ensure compatibility
+        function createSaturn() {
+            // Planet body
+            const saturnGeometry = new THREE.SphereGeometry(10, 64, 64);
+            
+            // Create texture for Saturn
+            const saturnCanvas = document.createElement('canvas');
+            saturnCanvas.width = 1024;
+            saturnCanvas.height = 512;
+            const saturnCtx = saturnCanvas.getContext('2d');
+            
+            // Create gradient background
+            const gradient = saturnCtx.createLinearGradient(0, 0, 0, 512);
+            gradient.addColorStop(0, '#e8a04d'); // Orangish at top
+            gradient.addColorStop(0.3, '#cc7b38'); // Darker orange
+            gradient.addColorStop(0.5, '#e8a04d'); // Back to orange
+            gradient.addColorStop(0.7, '#aa6020'); // Dark orange/brown
+            gradient.addColorStop(1, '#d49440'); // Golden at bottom
+            
+            saturnCtx.fillStyle = gradient;
+            saturnCtx.fillRect(0, 0, 1024, 512);
+            
+            // Add some horizontal bands
+            for (let i = 0; i < 15; i++) {
+                const y = Math.random() * 512;
+                const height = 5 + Math.random() * 15;
+                
+                saturnCtx.fillStyle = i % 2 === 0 ? 'rgba(160, 82, 45, 0.3)' : 'rgba(70, 130, 180, 0.2)';
+                saturnCtx.fillRect(0, y, 1024, height);
+            }
+            
+            // Create texture from canvas
+            const saturnTexture = new THREE.CanvasTexture(saturnCanvas);
+            
+            // Saturn material
+            const saturnMaterial = new THREE.MeshPhongMaterial({
+                map: saturnTexture,
+                bumpScale: 0.05,
+                specular: 0x777777,
+                shininess: 5
+            });
+            
+            const saturn = new THREE.Mesh(saturnGeometry, saturnMaterial);
+            scene.add(saturn);
+            
+            // Saturn's rings
+            const ringGeometry = new THREE.RingGeometry(12, 20, 64);
+            
+            // Create texture for rings
+            const ringCanvas = document.createElement('canvas');
+            ringCanvas.width = 1024;
+            ringCanvas.height = 128;
+            const ringCtx = ringCanvas.getContext('2d');
+            
+            // Create gradient for rings
+            const ringGradient = ringCtx.createRadialGradient(512, 64, 12 * 10, 512, 64, 20 * 10);
+            ringGradient.addColorStop(0, 'rgba(222, 184, 135, 0.7)'); // Inner ring
+            ringGradient.addColorStop(0.4, 'rgba(218, 165, 32, 0.6)'); // Mid ring
+            ringGradient.addColorStop(0.6, 'rgba(210, 180, 140, 0.5)'); // Mid ring
+            ringGradient.addColorStop(1, 'rgba(245, 222, 179, 0.3)'); // Outer ring
+            
+            ringCtx.fillStyle = ringGradient;
+            ringCtx.fillRect(0, 0, 1024, 128);
+            
+            // Add some ring details
+            for (let i = 0; i < 30; i++) {
+                const radius = 12 * 10 + (Math.random() * (20 - 12) * 10);
+                const thickness = 1 + Math.random() * 3;
+                
+                ringCtx.strokeStyle = i % 2 === 0 ? 'rgba(210, 180, 140, 0.3)' : 'rgba(169, 169, 169, 0.2)';
+                ringCtx.lineWidth = thickness;
+                ringCtx.beginPath();
+                ringCtx.arc(512, 64, radius, 0, 2 * Math.PI);
+                ringCtx.stroke();
+            }
+            
+            // Create texture from canvas
+            const ringTexture = new THREE.CanvasTexture(ringCanvas);
+            
+            // Modify UVs to make the texture work correctly with a ring geometry
+            const ringUvs = ringGeometry.attributes.uv;
+            for (let i = 0; i < ringUvs.count; i++) {
+                const u = ringUvs.getX(i);
+                const v = ringUvs.getY(i);
+                // Transform UVs to work better with our texture
+                ringUvs.setXY(i, u, 0.5);
+            }
+            
+            const ringMaterial = new THREE.MeshBasicMaterial({
+                map: ringTexture,
+                side: THREE.DoubleSide,
+                transparent: true,
+                opacity: 0.8
+            });
+            
+            const ring = new THREE.Mesh(ringGeometry, ringMaterial);
+            ring.rotation.x = Math.PI / 2;
+            scene.add(ring);
+            
+            return { planet: saturn, ring: ring };
+        }
+        
+        // Create a nebula background
+        function createNebula() {
+            const nebulaGeometry = new THREE.SphereGeometry(500, 32, 32);
+            
+            // Create a canvas for the nebula texture
+            const nebulaCanvas = document.createElement('canvas');
+            nebulaCanvas.width = 10000;
+            nebulaCanvas.height = 512;
+            const nebulaCtx = nebulaCanvas.getContext('2d');
+            
+            // Create gradient background
+            const gradient = nebulaCtx.createRadialGradient(512, 256, 0, 512, 256, 512);
+            gradient.addColorStop(0, '#000000'); // Black at center
+            gradient.addColorStop(0.5, '#1a0033'); // Very dark purple
+            gradient.addColorStop(0.8, '#330066'); // Dark purple
+            gradient.addColorStop(1, '#000000'); // Black at edge
+            
+            nebulaCtx.fillStyle = gradient;
+            nebulaCtx.fillRect(0, 0, 1024, 512);
+            
+            // Add nebula clouds
+            for (let i = 0; i < 50; i++) {
+                const x = Math.random() * 1024;
+                const y = Math.random() * 512;
+                const radius = 50 + Math.random() * 200;
+                
+                const cloudGradient = nebulaCtx.createRadialGradient(x, y, 0, x, y, radius);
+                const colorChoice = Math.random();
+                
+                if (colorChoice < 0.4) {
+                    // Purple nebula
+                    cloudGradient.addColorStop(0, 'rgba(128, 0, 128, 0.3)');
+                    cloudGradient.addColorStop(1, 'rgba(128, 0, 128, 0)');
+                } else if (colorChoice < 0.7) {
+                    // Orange nebula
+                    cloudGradient.addColorStop(0, 'rgba(255, 140, 0, 0.2)');
+                    cloudGradient.addColorStop(1, 'rgba(255, 140, 0, 0)');
+                } else {
+                    // Pinkish nebula
+                    cloudGradient.addColorStop(0, 'rgba(219, 112, 147, 0.2)');
+                    cloudGradient.addColorStop(1, 'rgba(219, 112, 147, 0)');
+                }
+                
+                nebulaCtx.fillStyle = cloudGradient;
+                nebulaCtx.beginPath();
+                nebulaCtx.arc(x, y, radius, 0, 2 * Math.PI);
+                nebulaCtx.fill();
+            }
+            
+            // Add stars
+            for (let i = 0; i < 1000; i++) {
+                const x = Math.random() * 1024;
+                const y = Math.random() * 512;
+                const size = Math.random() * 2;
+                
+                nebulaCtx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+                nebulaCtx.beginPath();
+                nebulaCtx.arc(x, y, size, 0, 2 * Math.PI);
+                nebulaCtx.fill();
+            }
+            
+            // Create texture from canvas
+            const nebulaTexture = new THREE.CanvasTexture(nebulaCanvas);
+            
+            const nebulaMaterial = new THREE.MeshBasicMaterial({
+                map: nebulaTexture,
+                side: THREE.BackSide,
+                transparent: true,
+                opacity: 1.0
+            });
+            
+            const nebula = new THREE.Mesh(nebulaGeometry, nebulaMaterial);
+            scene.add(nebula);
+            
+            return { mesh: nebula };
+        }
+        
+        // Add lights
+        const ambientLight = new THREE.AmbientLight(0x333333);
+        scene.add(ambientLight);
+        
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+        directionalLight.position.set(5, 3, 5);
+        scene.add(directionalLight);
+        
+        // Add orbit controls for mouse rotation
+        const controls = new OrbitControls(camera, renderer.domElement);
+        
+        // Create all elements
+        createStars();
+        const saturnObj = createSaturn();
+        const nebulaObj = createNebula();
+        
+        // Animation loop
+        const clock = new THREE.Clock();
+        function animate() {
+            requestAnimationFrame(animate);
+            
+            const time = clock.getElapsedTime();
+            
+            // Gentle auto-rotation when not interacting
+            if (!controls.isMouseDown) {
+                saturnObj.planet.rotation.y += 0.001;
+                saturnObj.ring.rotation.z += 0.0005;
+            }
+            
+            renderer.render(scene, camera);
+        }
+        
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+        
+        // Start animation
+        animate();
+    </script>
+</body>
+</html>

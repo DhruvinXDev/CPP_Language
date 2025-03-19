@@ -1,0 +1,2 @@
+The number of charactor is : 45
+The number of line is : 3

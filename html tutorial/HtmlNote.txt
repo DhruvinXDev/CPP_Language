@@ -1,0 +1,166 @@
+html tutorial note
+
+<html lang="en"> :- language english
+<br /> :- new line 
+<a href="//link">name_for_display</a>
+<img src="/img_link" alt="for_not_find_img"   />
+<b> bold </b>
+<i> italic </i>
+<u>  underline </u>
+<big> big text </big>
+<small> small text </small>
+<hr> :- horizontal line 
+<sub> subscript </sub>
+<sup> superscript </sup>
+<pre> is coman as per pregraph tag and diffrenace is it allow to use multipal line and next line </pre>
+<header> for header </header>
+<main> for main </main>
+<footer> for footer </footer>
+
+inside main tag 
+<section> for a section on your page </section>
+<article> for a article on your page </article>
+<aside> for content aside main content(ads)</aside>
+
+<a href="//link" target="_main">name_for_display</a> :- open in new tab
+<a href="//link"><img src="link" alt="alt msg></a> :- click on image the go to the link
+
+<img src="link" alt="alt msg height=50px> :- this is set automatic width
+<img src="link" alt="alt msg width=50px> :- this is set automatic height
+
+
+div tag :- non semantic tag
+-div is a container used for other HTML elements
+-Block Element (takes full width)
+
+span tag  
+-span is also a container used for other HTML elements
+-Inline element (takes width as per size)
+
+unordered list
+:- one list (doted list )
+<ul>
+       <li> Apple </li>
+       <li> Mango </li>
+</ul>
+
+:-multiple list
+<ul>
+       <li> Apple </li>
+              <ul>
+	   <li> color : red </li>
+	   <li>season : winters </li>
+               </ul>
+       <li> Mango </li>
+</ul>
+
+ordered list 
+:- one list (1,2,3...)
+<ol>
+       <li>Apple </li>
+       <li> Mango </li>
+</ol>
+
+
+tables in html
+<table> 
+<tr> used to display table row
+<td> used to display table data
+<th> used to display table header
+</table>
+
+ex:- 
+<table>
+            <tr>
+	<th> name </th>
+	<th> roll number </th>
+           </tr>
+           <tr>
+                  <td> dhruvin </td>
+                  <td> 137 </td>
+           </tr>
+</table> 
+
+capiton in table
+
+<caption> write caption over hear </caption>
+
+<thead> :- for hader of table
+<tbody> :- for body of table
+
+<th colspan="the_number_of_collom_you_shoud_cover" >
+write hader here
+</th>
+
+form in html 
+:-
+<form action="where_go_data">
+form content
+</form>
+
+form element 
+input :-
+<input type="text" placeholder="enter name">
+<inpur typr="password" placeholder="enter password">
+
+lable :-
+<lable for="name of lable" >
+<input type="radio" value="class x" name="class" if="id1">
+</lable>
+ 
+<input type="radio" value="men" name="gender" >men
+<input type="radio" value="women" name="gender">women
+
+hear name is same but value is diff it mean's name is like group off the choice(one same group are repersent like only choice one of them )
+and value contain the value of the redio button .
+
+class & id
+<div id="id1" class="group1">
+
+</div>
+<div id="id2" class="group1">
+ 
+</div>
+
+checkbox
+
+<label for="math">
+<input type="checkbox" value="math" name="subject" id="101">
+</label>
+
+textarea
+
+<textarea name="feedback" id="101" placeholder="please give your feedback" rows=5 cols=5>feedback 
+</textarea>
+
+select
+
+<select name="city" id="city">
+	<option value="delhi">delhi</option>
+	<option value="mumbai">mumbai</option>
+	<option value="surat">surat</option>
+</select>
+
+submit
+
+<input type="submit" value="submit">:-here submit value will show on the button
+
+reset
+<input type="reset" value="reset">:- here reset value will show on the button
+
+iframe tag
+<iframe src="link">
+:-website inside website 
+
+video tag
+<video src="/myvid.mp4" controls loop autoplay >My video</video>
+:-controls for the play stop etc.. for video
+:-loop for the looping of video
+:-autoplay for automatic video start 
+
+
+
+
+relative url :- for in the folder url
+absalute url :- internet url
+
