@@ -25,13 +25,13 @@ int super_digit ( int , int );
 
 int main  ( )
 {
-    int number , k,super_digit;
+    int number , k,super_digit_value;
     cout << "Enter the number : ";
     cin >> number;
     cout << "Enter the k : ";
     cin >> k ;
-    super_digit = super_digit(number , k);
-    cout <<"The super digit is : "<<super_digit<<endl;
+    super_digit_value = super_digit(number , k);
+    cout <<"The super digit is : "<<super_digit_value<<endl;
     return 0;
 }
 
