@@ -1,7 +1,6 @@
 #include <iostream>
 #include <string>
 using namespace std;
-
 int main() {
     string ownerName, accountNumber;
     double balance = 0.0, amount;
