@@ -6,7 +6,7 @@ class fuel {
     string fuel_type;
     public :
     fuel(string fuel) : fuel_type(fuel) { }
-    void display_fuel() const 
+    void display_fuel() const
     {
         cout <<"Fuel type is : "<<fuel_type<<endl;
     }
