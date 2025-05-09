@@ -4,7 +4,7 @@ using namespace std;
 
 int main() {
     // your code goes here
-    int T, ans = 1;
+    int T;
     vector < int > X, Y, month;
     cin >> T;
     while (T--)
