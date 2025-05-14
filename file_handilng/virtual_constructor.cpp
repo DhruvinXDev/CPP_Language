@@ -34,12 +34,9 @@ class drived : public base {
 };
 
 int main() {
-    {
-        base  *b = new drived;
-     
-        b->greting();
-        delete b;
-    }
+    base  *b = new drived;
+    b->greting();
+    delete b;
 
   return 0;
 }
