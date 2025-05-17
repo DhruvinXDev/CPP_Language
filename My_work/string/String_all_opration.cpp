@@ -12,10 +12,11 @@ int main()
     string input;
     // 1
     cin >> input;
-    cout << "input : "<<input;
+    cout << "input : "<<input<<endl;
     // 2
-    cin.ignore();
+    cin.ignore(); // for clear the buffer 
     getline(cin, input);
+    cout << "input : "<<input<<endl;
     // 3
     // form stringstream
     return 0;
