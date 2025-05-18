@@ -11,6 +11,6 @@ int main() {
    {
     cout << temp << endl ;
    }
-
+   obj.clear(); // clear the stringstring
   return 0;
 }
