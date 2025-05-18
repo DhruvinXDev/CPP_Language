@@ -28,6 +28,10 @@ int main()
     v1.push_back(1);
     print(v1);
     // v1.push_front(1); //give error because this in not valid in vector
+    v1.pop_back();
+    print(v1);
+    v1.pop_back();
+    print(v1);
 
     return 0;
 }
