@@ -29,7 +29,6 @@ int main() {
    cout<<"The size of the C class : "<<sizeof(C)<<endl;
    cout<<"The size of the D class : "<<sizeof(D)<<endl;
    cout<<"The size of the E class : "<<sizeof(E)<<endl;
-   cout<<"The size of virtual : "<<sizeof(virtual)<<endl;
-
+   
   return 0;
 }
