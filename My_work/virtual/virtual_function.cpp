@@ -1,5 +1,12 @@
 #include <iostream>
 using namespace std;
+/*
+Normal way :
+Hello Dhruvin Welcome to base class !!
+Hello Dhruvin Welcome to Derived class !!
+In pointer :
+Hello Dhruvin Welcome to Derived class !!
+*/
 class base
 {
 public:
